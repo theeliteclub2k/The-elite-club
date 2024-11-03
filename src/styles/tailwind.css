@@ -1,0 +1,107 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /*------Color variables------*/
+    --amber_500: #ffc107;
+    --amber_500_01: #fbbc04;
+    --black_900_01: #000000;
+    --blue_700: #286fe5;
+    --blue_a200: #4285f4;
+    --blue_gray_100: #d6dae2;
+    --blue_gray_200: #b4b6c4;
+    --blue_gray_200_01: #adaeb5;
+    --blue_gray_300: #8a96a4;
+    --blue_gray_600: #5d6180;
+    --blue_gray_700: #535479;
+    --blue_gray_900_01: #1b2834;
+    --blue_gray_900_0c: #1b28340c;
+    --gray_100_01: #f5f5f6;
+    --gray_200: #e6e7eb;
+    --gray_200_02: #f0f0f0;
+    --gray_300: #e6e6e6;
+    --gray_300_01: #dde1e6;
+    --gray_400: #c0bfc0;
+    --gray_400_01: #bdbdbd;
+    --gray_500: #949494;
+    --gray_500_02: #979797;
+    --gray_600: #777c84;
+    --gray_800: #4f4f4f;
+    --gray_800_01: #505050;
+    --gray_800_02: #3c4043;
+    --green_400: #65bc6a;
+    --green_600: #34a853;
+    --green_600_01: #359766;
+    --green_700: #398f3e;
+    --green_800: #29752b;
+    --green_900: #236823;
+    --red_500: #ea4335;
+    --red_800: #ce0f24;
+    --teal_400: #389674;
+    --white_a700: #ffffff;
+    --white_a700_4c: #ffffff4c;
+    --white_a700_cc: #ffffffcc;
+
+    /*------Border radius variables------*/
+    --radius-xs: 2px;
+    --radius-sm: 4px;
+    --radius-md: 6px;
+    --radius-lg: 8px;
+    --radius-xl: 10px;
+    --radius-2xl: 12px;
+    --radius-3xl: 30px;
+
+    /*------Spacing variables------*/
+    --space-xs: 0.25rem;
+    --space-sm: 0.38rem;
+    --space-md: 0.5rem;
+    --space-lg: 0.56rem;
+    --space-xl: 0.63rem;
+    --space-2xl: 0.75rem;
+    --space-3xl: 0.88rem;
+    --space-4xl: 1rem;
+    --space-5xl: 1.06rem;
+    --space-6xl: 1.13rem;
+    --space-7xl: 1.25rem;
+    --space-8xl: 1.38rem;
+    --space-9xl: 1.5rem;
+    --space-10xl: 1.75rem;
+    --space-11xl: 1.88rem;
+    --space-12xl: 2rem;
+    --space-13xl: 2.25rem;
+    --space-14xl: 2.88rem;
+    --space-15xl: 3rem;
+    --space-16xl: 3.13rem;
+  }
+  [type="text"],
+  input:where(:not([type])),
+  [type="email"],
+  [type="url"],
+  [type="password"],
+  [type="number"],
+  [type="date"],
+  [type="datetime-local"],
+  [type="month"],
+  [type="search"],
+  [type="tel"],
+  [type="time"],
+  [type="week"],
+  [multiple],
+  textarea,
+  select {
+    appearance: initial;
+    background-color: initial;
+    border: initial;
+    border-width: 0;
+  }
+}
+@layer components {
+  /*-------------------------------------
+  Container CSS
+--------------------------------------*/
+  .container-xs {
+    @apply w-full mx-auto max-w-[75.25rem];
+  }
+}
