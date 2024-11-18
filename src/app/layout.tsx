@@ -13,9 +13,7 @@ function RootLayout({ children }: { children: ReactNode }) {
         <link rel="manifest" href="/manifest.json" />
         <link rel="icon" href="/favicon.ico" />
       </head>
-      <body>{children}
-        <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-      </body>
+      <body>{children}</body>
     </html>
   );
 }
