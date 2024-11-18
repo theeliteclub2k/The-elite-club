@@ -76,7 +76,7 @@ export default function SIGNINPage() {
                         Don’t have an account?
                       </Text>
                     </Link>
-                    <a href="https://www.youtube.com/embed/bv8Fxk0sz7I" target="_blank">
+                    <a href="#" target="_blank">
                       <Heading size="headingmd" as="h3" className="text-[1.00rem] font-bold text-blue_gray-900_01">
                         Sign Up
                       </Heading>
