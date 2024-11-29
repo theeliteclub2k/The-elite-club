@@ -2,7 +2,7 @@ import React, { ReactNode } from "react";
 import "@/styles/tailwind.css";
 import "../styles/index.css";
 import "../styles/font.css";
-
+import { Toaster } from "@/components/ui/Toaster";
 function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
@@ -13,7 +13,10 @@ function RootLayout({ children }: { children: ReactNode }) {
         <link rel="manifest" href="/manifest.json" />
         <link rel="icon" href="/favicon.ico" />
       </head>
-      <body>{children}</body>
+      <body>
+        {children}
+        <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+      </body>
     </html>
   );
 }
