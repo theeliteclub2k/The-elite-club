@@ -1,8 +1,10 @@
+'use client'
 import BrandSelectionComponent from "../../components/BrandSelectionComponent";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import ProductListProductcard from "../../components/ProductListProductcard";
 import NewsBlogSection from "./NewsBlogSection";
+import axios from "axios"
 import {
   Img,
   Heading,
@@ -22,7 +24,9 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui";
 import Link from "next/link";
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect, useState } from "react";
+import { useCart } from "@/store/store";
+import { useStore } from "zustand";
 
 const dropDownOptions = [
   { label: "Option1", value: "option1" },
@@ -30,7 +34,33 @@ const dropDownOptions = [
   { label: "Option3", value: "option3" },
 ];
 
+export interface Product {
+  category: string,
+  description: string,
+  id: number,
+  image: string,
+  price: number,
+  rating: {
+    rate: number,
+    count: number
+  },
+  title: string
+}
+
 export default function ProductlistPage() {
+
+  const [Data, setData] = useState<Product[] | null>(null)
+  const Cart = useStore(useCart)
+
+  const fetchProducts = async () => {
+    const { data } = await axios.get('https://fakestoreapi.com/products')
+    setData(data)
+  }
+
+  useEffect(() => {
+    fetchProducts()
+  }, [])
+
   return (
     <div className="flex w-full flex-col gap-[5.63rem] bg-white-a700 md:gap-[4.19rem] sm:gap-[2.81rem]">
       <div className="flex flex-col gap-[1.50rem]">
@@ -116,7 +146,7 @@ export default function ProductlistPage() {
                   </div>
                   <div className="flex flex-col gap-[0.38rem] md:flex-row sm:flex-col">
                     <BrandSelectionComponent />
-                    <BrandSelectionComponent />
+                    {/* <BrandSelectionComponent /> */}
                   </div>
                   <Select name="Price Dropdown">
                     <SelectTrigger
@@ -192,8 +222,12 @@ export default function ProductlistPage() {
               <div className="flex flex-1 flex-col gap-[3.00rem] self-center md:self-stretch">
                 <div className="grid grid-cols-3 justify-center gap-[3.00rem] md:grid-cols-2 sm:grid-cols-1">
                   <Suspense fallback={<div>Loading feed...</div>}>
-                    {[...Array(12)].map((d, index) => (
-                      <ProductListProductcard key={"productListGrid" + index} />
+                    {Data?.map((d, index) => (
+                      Data &&
+                      <ProductListProductcard
+                        key={"productListGrid" + index}
+                        data={d!}
+                      />
                     ))}
                   </Suspense>
                 </div>

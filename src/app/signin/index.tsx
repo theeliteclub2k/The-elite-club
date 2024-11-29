@@ -63,24 +63,20 @@ export default function SIGNINPage() {
                         </Link>
                       </div>
                     </div>
-                    <Button
-                      shape="round"
-                      className="w-full max-w-[39.00rem] self-stretch rounded-md px-[2.13rem] sm:px-[1.25rem]"
-                    >
-                      SIGN IN
-                    </Button>
                   </div>
                   <div className="flex flex-wrap gap-[0.25rem]">
                     <Link href="#">
-                      <Text as="p" className="text-[1.00rem] font-normal text-blue_gray-900_01">
+                      <Text as="p" className="text-[1.00rem] font-normal text-gray-950">
                         Don’t have an account?
                       </Text>
                     </Link>
-                    <a href="#" target="_blank">
-                      <Heading size="headingmd" as="h3" className="text-[1.00rem] font-bold text-blue_gray-900_01">
-                        Sign Up
-                      </Heading>
-                    </a>
+                    <div className="flex justify-center mx-auto ">
+                      <a href="/productlist" >
+                        <Heading size="headingmd" as="h3" className="text-[1.00rem] font-bold text-blue_gray-900_01">
+                          Sign Up
+                        </Heading>
+                      </a>
+                    </div>
                   </div>
                 </div>
                 <Separator orientation="horizontal" className="h-[0.06rem] w-full self-stretch bg-gray-200" />
