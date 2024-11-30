@@ -18,6 +18,7 @@ import {
 } from "@/components/ui";
 import Link from "next/link";
 import React from "react";
+import toast from "react-hot-toast";
 
 declare global {
   interface Window {
@@ -26,7 +27,7 @@ declare global {
 }
 const order = [{
   itemId: "67477ba93d297752ec40ad36",
-  quantity: 2,
+  quantity: 3,
 },
 {
   itemId: "67477ba93d297752ec40ad37",
@@ -43,6 +44,10 @@ export default function CheckoutPage() {
     });
     const data = await response.json();
     console.log(data);
+    if (data.status !== 200) {
+      toast.error(data.error);
+      return;
+    }
     var opti = {
       key: process.env.RAZORPAY_KEY_ID, // Enter the Key ID generated from the Dashboard
       amount: 100 * 100, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
@@ -60,6 +65,7 @@ export default function CheckoutPage() {
             payment: response,
           }),
         });
+        toast.success("Payment Successful");
         router.push("/"); //redirect to home page
       },
       prefill: {
@@ -76,6 +82,7 @@ export default function CheckoutPage() {
     rzp1.open();
     rzp1.on("payment.failed", function (response: any) {
       console.log("payment failed : ", response);
+      toast.error("Payment Failed");
     });
   };
   return (

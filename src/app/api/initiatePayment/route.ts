@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import Razorpay from "razorpay";
 import { NextRequest } from "next/server";
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient, Product } from '@prisma/client'
 
 const prisma = new PrismaClient()
 interface RequestBody {
@@ -46,7 +46,7 @@ export async function POST(request: NextRequest) {
             where: { id: { in: productIds } },
         });
 
-        const productMap = new Map(products.map(product => [product.id, product]));
+        const productMap = new Map(products.map((product: Product) => [product.id, product]));
         let totalAmount = 0;
         const notes: Notes = {};
 
