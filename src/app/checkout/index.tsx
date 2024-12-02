@@ -17,7 +17,7 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/components/ui";
+} from "@/components/ui/Index";
 import Link from "next/link";
 import React, { Suspense } from "react";
 
@@ -106,7 +106,10 @@ export default function CheckoutPage() {
                     >
                       Payment Option
                     </Text>
-                    <Separator orientation="horizontal" className="h-[0.06rem] w-full self-stretch bg-blue_gray-100" />
+                    <Separator
+                      orientation="horizontal"
+                      className="h-[0.06rem] w-full self-stretch bg-blue_gray-100"
+                    />
                   </div>
                   <div className="flex flex-col gap-[1.50rem]">
                     <Suspense fallback={<div>Loading feed...</div>}>
@@ -125,7 +128,10 @@ export default function CheckoutPage() {
                     >
                       Saved Cards
                     </Text>
-                    <Separator orientation="horizontal" className="h-[0.06rem] w-full self-stretch bg-blue_gray-100" />
+                    <Separator
+                      orientation="horizontal"
+                      className="h-[0.06rem] w-full self-stretch bg-blue_gray-100"
+                    />
                   </div>
                   <div className="flex flex-col gap-[1.50rem]">
                     <CardDetails />
@@ -145,14 +151,22 @@ export default function CheckoutPage() {
                         alt="Card Image"
                         className="h-[2.25rem] w-[2.25rem]"
                       />
-                      <Heading size="textxl" as="h2" className="text-[1.25rem] font-medium text-blue_gray-900_01">
+                      <Heading
+                        size="textxl"
+                        as="h2"
+                        className="text-[1.25rem] font-medium text-blue_gray-900_01"
+                      >
                         Add New Credit/Debit/ATM Card
                       </Heading>
                     </div>
                     <div className="flex flex-col items-end gap-[1.00rem]">
                       <div className="flex flex-col items-end gap-[0.50rem] self-stretch">
                         <div className="flex self-stretch pl-[3.75rem] pr-[3.50rem] md:px-[1.25rem]">
-                          <Text size="textlg" as="p" className="text-[1.13rem] font-medium text-blue_gray-900_01">
+                          <Text
+                            size="textlg"
+                            as="p"
+                            className="text-[1.13rem] font-medium text-blue_gray-900_01"
+                          >
                             Card Holder Name
                           </Text>
                         </div>
@@ -166,13 +180,20 @@ export default function CheckoutPage() {
                       </div>
                       <div className="flex flex-col items-end gap-[0.50rem] self-stretch">
                         <div className="flex self-stretch pl-[3.75rem] pr-[3.50rem] md:px-[1.25rem]">
-                          <Text size="textlg" as="p" className="text-[1.13rem] font-medium text-blue_gray-900_01">
+                          <Text
+                            size="textlg"
+                            as="p"
+                            className="text-[1.13rem] font-medium text-blue_gray-900_01"
+                          >
                             Card Number
                           </Text>
                         </div>
                         <div className="flex w-[90%] items-center justify-center rounded-md border border-solid border-blue_gray-100 bg-white-a700 px-[0.75rem] py-[0.88rem] md:w-full">
                           <div className="flex flex-1">
-                            <Text as="p" className="text-[1.00rem] font-normal text-gray-400">
+                            <Text
+                              as="p"
+                              className="text-[1.00rem] font-normal text-gray-400"
+                            >
                               XXXX XXXX XXXX XX34
                             </Text>
                           </div>
@@ -187,7 +208,11 @@ export default function CheckoutPage() {
                       </div>
                       <div className="flex justify-center gap-[1.06rem] self-stretch md:flex-col">
                         <div className="flex w-[44%] flex-col items-start justify-center gap-[0.50rem] md:w-full">
-                          <Text size="textlg" as="p" className="text-[1.13rem] font-medium text-blue_gray-900_01">
+                          <Text
+                            size="textlg"
+                            as="p"
+                            className="text-[1.13rem] font-medium text-blue_gray-900_01"
+                          >
                             Expiry Date
                           </Text>
                           <Input
@@ -198,7 +223,11 @@ export default function CheckoutPage() {
                           />
                         </div>
                         <div className="flex w-[44%] flex-col items-start justify-center gap-[0.50rem] md:w-full">
-                          <Text size="textlg" as="p" className="text-[1.13rem] font-medium text-blue_gray-900_01">
+                          <Text
+                            size="textlg"
+                            as="p"
+                            className="text-[1.13rem] font-medium text-blue_gray-900_01"
+                          >
                             CVV
                           </Text>
                           <Input
@@ -226,36 +255,67 @@ export default function CheckoutPage() {
                 />
                 <div className="flex flex-1 flex-col gap-[2.00rem] rounded-lg bg-white-a700 sm:self-stretch">
                   <div className="flex flex-col items-start justify-center gap-[1.38rem]">
-                    <Heading as="h3" className="text-[1.13rem] font-semibold text-blue_gray-900_01">
+                    <Heading
+                      as="h3"
+                      className="text-[1.13rem] font-semibold text-blue_gray-900_01"
+                    >
                       PRICE DETAILS (2 items)
                     </Heading>
                     <div className="flex flex-col gap-[0.88rem] self-stretch">
                       <div className="flex flex-wrap justify-between gap-[1.25rem]">
-                        <Text size="textlg" as="p" className="text-[1.13rem] font-normal text-gray-600">
+                        <Text
+                          size="textlg"
+                          as="p"
+                          className="text-[1.13rem] font-normal text-gray-600"
+                        >
                           Total MRP
                         </Text>
-                        <Text size="textlg" as="p" className="text-[1.13rem] font-normal text-blue_gray-900_01">
+                        <Text
+                          size="textlg"
+                          as="p"
+                          className="text-[1.13rem] font-normal text-blue_gray-900_01"
+                        >
                           ₹2598
                         </Text>
                       </div>
                       <div className="flex flex-wrap justify-between gap-[1.25rem]">
-                        <Text size="textlg" as="p" className="text-[1.13rem] font-normal text-gray-600">
+                        <Text
+                          size="textlg"
+                          as="p"
+                          className="text-[1.13rem] font-normal text-gray-600"
+                        >
                           Discount on MRP
                         </Text>
-                        <Text size="textlg" as="p" className="text-[1.13rem] font-normal text-green-600_01">
+                        <Text
+                          size="textlg"
+                          as="p"
+                          className="text-[1.13rem] font-normal text-green-600_01"
+                        >
                           -₹1430
                         </Text>
                       </div>
                       <div className="flex flex-wrap items-center justify-between gap-[1.25rem]">
-                        <Text size="textlg" as="p" className="text-[1.13rem] font-normal text-gray-600">
+                        <Text
+                          size="textlg"
+                          as="p"
+                          className="text-[1.13rem] font-normal text-gray-600"
+                        >
                           Coupon Discount
                         </Text>
-                        <Text size="textlg" as="p" className="text-[1.13rem] font-normal text-green-600_01">
+                        <Text
+                          size="textlg"
+                          as="p"
+                          className="text-[1.13rem] font-normal text-green-600_01"
+                        >
                           -₹179
                         </Text>
                       </div>
                       <div className="flex justify-center">
-                        <Text size="textlg" as="p" className="text-[1.13rem] font-normal text-gray-600">
+                        <Text
+                          size="textlg"
+                          as="p"
+                          className="text-[1.13rem] font-normal text-gray-600"
+                        >
                           Shipping Fee
                         </Text>
                         <div className="flex flex-1 flex-wrap justify-end">
@@ -266,18 +326,31 @@ export default function CheckoutPage() {
                           >
                             ₹100
                           </Text>
-                          <Text size="textlg" as="p" className="text-[1.13rem] font-normal text-green-600_01">
+                          <Text
+                            size="textlg"
+                            as="p"
+                            className="text-[1.13rem] font-normal text-green-600_01"
+                          >
                             FREE
                           </Text>
                         </div>
                       </div>
                     </div>
-                    <Separator orientation="horizontal" className="h-[0.06rem] w-full self-stretch bg-gray-300" />
+                    <Separator
+                      orientation="horizontal"
+                      className="h-[0.06rem] w-full self-stretch bg-gray-300"
+                    />
                     <div className="flex flex-wrap justify-between gap-[1.25rem] self-stretch">
-                      <Heading as="h4" className="text-[1.13rem] font-semibold text-blue_gray-900_01">
+                      <Heading
+                        as="h4"
+                        className="text-[1.13rem] font-semibold text-blue_gray-900_01"
+                      >
                         Total Amount
                       </Heading>
-                      <Heading as="h5" className="text-[1.13rem] font-semibold text-blue_gray-900_01">
+                      <Heading
+                        as="h5"
+                        className="text-[1.13rem] font-semibold text-blue_gray-900_01"
+                      >
                         $992
                       </Heading>
                     </div>

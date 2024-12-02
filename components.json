@@ -1,7 +1,9 @@
 {
+  "$schema": "https://ui.shadcn.com/schema.json",
   "style": "default",
-  "rsc": false,
+  "rsc": true,
   "tsx": true,
+  "css": "src/styles/tailwind.css",
   "tailwind": {
     "config": "tailwind.config.js",
     "css": "./src/styles/tailwind.css",
@@ -10,7 +12,11 @@
     "prefix": ""
   },
   "aliases": {
+    "components": "@/components",
     "utils": "@/lib/utils",
-    "components": "components"
-  }
+    "ui": "@/components/ui",
+    "lib": "@/lib",
+    "hooks": "@/hooks"
+  },
+  "iconLibrary": "lucide"
 }

@@ -1,4 +1,4 @@
-import { Text, Heading, Separator, Img } from "@/components/ui";
+import { Text, Heading, Separator, Img } from "@/components/ui/Index";
 import React from "react";
 
 interface Props {
@@ -19,7 +19,10 @@ export default function UserProfile2({
   ...props
 }: Props) {
   return (
-    <div {...props} className={`${props.className} flex flex-col items-center w-[23.75rem] gap-[1.75rem]`}>
+    <div
+      {...props}
+      className={`${props.className} flex flex-col items-center w-[23.75rem] gap-[1.75rem]`}
+    >
       <Img
         src={userImage}
         width={380}
@@ -36,15 +39,25 @@ export default function UserProfile2({
             orientation="vertical"
             className="ml-[1.00rem] h-[1.00rem] w-[0.06rem] self-start bg-blue_gray-700"
           />
-          <Text as="p" className="ml-[0.88rem] text-[1.00rem] font-normal text-gray-800_01">
+          <Text
+            as="p"
+            className="ml-[0.88rem] text-[1.00rem] font-normal text-gray-800_01"
+          >
             {brandName}
           </Text>
         </div>
         <div className="flex flex-col items-start justify-center gap-[0.88rem]">
-          <Heading as="h6" className="text-[1.13rem] font-semibold text-blue_gray-900_01">
+          <Heading
+            as="h6"
+            className="text-[1.13rem] font-semibold text-blue_gray-900_01"
+          >
             {titleText}
           </Heading>
-          <Text size="textlg" as="p" className="w-full text-[1.13rem] font-normal leading-[1.75rem] text-gray-800_01">
+          <Text
+            size="textlg"
+            as="p"
+            className="w-full text-[1.13rem] font-normal leading-[1.75rem] text-gray-800_01"
+          >
             {descriptionText}
           </Text>
         </div>

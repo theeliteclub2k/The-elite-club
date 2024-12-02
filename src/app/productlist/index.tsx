@@ -20,7 +20,7 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/components/ui";
+} from "@/components/ui/Index";
 import Link from "next/link";
 import React, { Suspense } from "react";
 
@@ -77,13 +77,20 @@ export default function ProductlistPage() {
             </Breadcrumb>
             <div className="flex items-start gap-[3.00rem] md:flex-col">
               <div className="flex w-[20%] flex-col items-start gap-[0.75rem] md:w-full">
-                <Heading as="h2" className="mt-[0.50rem] text-[1.13rem] font-bold text-blue_gray-900_01">
+                <Heading
+                  as="h2"
+                  className="mt-[0.50rem] text-[1.13rem] font-bold text-blue_gray-900_01"
+                >
                   Filters
                 </Heading>
                 <div className="flex flex-col gap-[0.38rem] self-stretch">
                   <div className="flex flex-col gap-[0.75rem]">
                     <div className="flex items-center justify-between gap-[1.25rem] border-t border-solid border-gray-300_01 py-[0.75rem]">
-                      <Heading size="headingmd" as="h3" className="text-[1.00rem] font-semibold text-gray-600">
+                      <Heading
+                        size="headingmd"
+                        as="h3"
+                        className="text-[1.00rem] font-semibold text-gray-600"
+                      >
                         Category
                       </Heading>
                       <Img
@@ -95,20 +102,35 @@ export default function ProductlistPage() {
                       />
                     </div>
                     <div className="mb-[0.25rem] flex flex-col items-start gap-[1.25rem]">
-                      <Text as="p" className="text-[1.00rem] font-normal text-gray-800">
+                      <Text
+                        as="p"
+                        className="text-[1.00rem] font-normal text-gray-800"
+                      >
                         Jacket
                       </Text>
-                      <Text as="p" className="text-[1.00rem] font-normal text-gray-800">
+                      <Text
+                        as="p"
+                        className="text-[1.00rem] font-normal text-gray-800"
+                      >
                         T-Shirt
                       </Text>
-                      <Text as="p" className="text-[1.00rem] font-normal text-gray-800">
+                      <Text
+                        as="p"
+                        className="text-[1.00rem] font-normal text-gray-800"
+                      >
                         Jeans
                       </Text>
-                      <Text as="p" className="text-[1.00rem] font-normal text-gray-800">
+                      <Text
+                        as="p"
+                        className="text-[1.00rem] font-normal text-gray-800"
+                      >
                         Panty
                       </Text>
                       <Link href="#">
-                        <Text as="p" className="text-[1.00rem] font-normal text-blue_gray-900_01 underline">
+                        <Text
+                          as="p"
+                          className="text-[1.00rem] font-normal text-blue_gray-900_01 underline"
+                        >
                           See all
                         </Text>
                       </Link>
@@ -221,13 +243,25 @@ export default function ProductlistPage() {
                     >
                       1
                     </Button>
-                    <Heading size="texts" as="h5" className="text-[0.94rem] font-medium text-blue_gray-900_01">
+                    <Heading
+                      size="texts"
+                      as="h5"
+                      className="text-[0.94rem] font-medium text-blue_gray-900_01"
+                    >
                       2
                     </Heading>
-                    <Heading size="texts" as="h6" className="text-[0.94rem] font-medium text-blue_gray-900_01">
+                    <Heading
+                      size="texts"
+                      as="h6"
+                      className="text-[0.94rem] font-medium text-blue_gray-900_01"
+                    >
                       3
                     </Heading>
-                    <Heading size="texts" as="p" className="text-[0.94rem] font-medium text-blue_gray-900_01">
+                    <Heading
+                      size="texts"
+                      as="p"
+                      className="text-[0.94rem] font-medium text-blue_gray-900_01"
+                    >
                       4
                     </Heading>
                   </div>
