@@ -8,7 +8,7 @@ import {
   SelectValue,
   SelectItem,
   SelectItems,
-} from "@/components/ui";
+} from "@/components/ui/Index";
 import React from "react";
 
 const dropDownOptions = [
@@ -59,10 +59,17 @@ export default function ProductDetails1({
         </div>
         <div className="flex flex-1 flex-col gap-[1.25rem] p-[0.38rem] sm:gap-[1.25rem]">
           <div className="ml-[0.50rem] flex flex-col items-start justify-center gap-[0.38rem] sm:ml-0 sm:gap-[0.38rem]">
-            <Heading as="h6" className="text-[1.13rem] font-semibold text-blue_gray-900_01 sm:text-[0.94rem]">
+            <Heading
+              as="h6"
+              className="text-[1.13rem] font-semibold text-blue_gray-900_01 sm:text-[0.94rem]"
+            >
               {productName}
             </Heading>
-            <Text size="textxs" as="p" className="text-[0.88rem] font-normal text-blue_gray-200_01">
+            <Text
+              size="textxs"
+              as="p"
+              className="text-[0.88rem] font-normal text-blue_gray-200_01"
+            >
               {sellerInfo}
             </Text>
           </div>

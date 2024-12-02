@@ -1,6 +1,13 @@
 "use client";
 
-import { Img, Text, Separator, Heading, Button, Input } from "@/components/ui";
+import {
+  Img,
+  Text,
+  Separator,
+  Heading,
+  Button,
+  Input,
+} from "@/components/ui/Index";
 import Link from "next/link";
 import React from "react";
 
@@ -30,7 +37,11 @@ export default function SIGNINPage() {
                     </Heading>
                     <div className="flex flex-col gap-[2.00rem] self-stretch">
                       <div className="flex flex-col items-start justify-center gap-[0.38rem]">
-                        <Text size="textlg" as="p" className="text-[1.13rem] font-medium text-blue_gray-900_01">
+                        <Text
+                          size="textlg"
+                          as="p"
+                          className="text-[1.13rem] font-medium text-blue_gray-900_01"
+                        >
                           Email Address
                         </Text>
                         <Input
@@ -42,7 +53,11 @@ export default function SIGNINPage() {
                       </div>
                       <div className="flex flex-col items-end gap-[1.25rem]">
                         <div className="flex flex-col items-start justify-center gap-[0.38rem] self-stretch">
-                          <Text size="textlg" as="p" className="text-[1.13rem] font-medium text-blue_gray-900_01">
+                          <Text
+                            size="textlg"
+                            as="p"
+                            className="text-[1.13rem] font-medium text-blue_gray-900_01"
+                          >
                             Password
                           </Text>
                           <Input
@@ -72,26 +87,45 @@ export default function SIGNINPage() {
                   </div>
                   <div className="flex flex-wrap gap-[0.25rem]">
                     <Link href="#">
-                      <Text as="p" className="text-[1.00rem] font-normal text-blue_gray-900_01">
+                      <Text
+                        as="p"
+                        className="text-[1.00rem] font-normal text-blue_gray-900_01"
+                      >
                         Don’t have an account?
                       </Text>
                     </Link>
-                    <a href="https://www.youtube.com/embed/bv8Fxk0sz7I" target="_blank">
-                      <Heading size="headingmd" as="h3" className="text-[1.00rem] font-bold text-blue_gray-900_01">
+                    <a
+                      href="https://www.youtube.com/embed/bv8Fxk0sz7I"
+                      target="_blank"
+                    >
+                      <Heading
+                        size="headingmd"
+                        as="h3"
+                        className="text-[1.00rem] font-bold text-blue_gray-900_01"
+                      >
                         Sign Up
                       </Heading>
                     </a>
                   </div>
                 </div>
-                <Separator orientation="horizontal" className="h-[0.06rem] w-full self-stretch bg-gray-200" />
+                <Separator
+                  orientation="horizontal"
+                  className="h-[0.06rem] w-full self-stretch bg-gray-200"
+                />
                 <div className="flex flex-wrap gap-[1.38rem]">
                   <Link href="#">
-                    <Text as="p" className="text-[1.00rem] font-normal text-blue_gray-200">
+                    <Text
+                      as="p"
+                      className="text-[1.00rem] font-normal text-blue_gray-200"
+                    >
                       Terms & Conditions
                     </Text>
                   </Link>
                   <Link href="#" className="self-end">
-                    <Text as="p" className="text-[1.00rem] font-normal text-blue_gray-200">
+                    <Text
+                      as="p"
+                      className="text-[1.00rem] font-normal text-blue_gray-200"
+                    >
                       Privacy Policy
                     </Text>
                   </Link>

@@ -1,4 +1,4 @@
-import { Text, Checkbox, Img, Heading } from "@/components/ui";
+import { Text, Checkbox, Img, Heading } from "@/components/ui/Index";
 import Link from "next/link";
 import React from "react";
 
@@ -8,11 +8,22 @@ interface Props {
   seeAllLink?: React.ReactNode;
 }
 
-export default function BrandSelectionComponent({ brandTitle = "Brands", seeAllLink = "See all", ...props }: Props) {
+export default function BrandSelectionComponent({
+  brandTitle = "Brands",
+  seeAllLink = "See all",
+  ...props
+}: Props) {
   return (
-    <div {...props} className={`${props.className} flex flex-col items-center gap-[0.63rem] flex-1`}>
+    <div
+      {...props}
+      className={`${props.className} flex flex-col items-center gap-[0.63rem] flex-1`}
+    >
       <div className="flex items-start justify-between gap-[1.25rem] self-stretch border-t border-solid border-gray-300_01 py-[0.63rem]">
-        <Heading size="headingmd" as="h6" className="text-[1.00rem] font-semibold text-blue_gray-900_01">
+        <Heading
+          size="headingmd"
+          as="h6"
+          className="text-[1.00rem] font-semibold text-blue_gray-900_01"
+        >
           {brandTitle}
         </Heading>
         <Img
@@ -50,7 +61,10 @@ export default function BrandSelectionComponent({ brandTitle = "Brands", seeAllL
           className="gap-[1.00rem] text-[1.00rem] text-blue_gray-900_01"
         />
         <Link href="#">
-          <Text as="p" className="text-[1.00rem] font-normal text-blue_gray-900_01 underline">
+          <Text
+            as="p"
+            className="text-[1.00rem] font-normal text-blue_gray-900_01 underline"
+          >
             {seeAllLink}
           </Text>
         </Link>

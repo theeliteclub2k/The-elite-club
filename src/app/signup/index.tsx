@@ -8,7 +8,7 @@ import {
   Checkbox,
   Input,
   Separator,
-} from "@/components/ui";
+} from "@/components/ui/Index";
 import React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -21,9 +21,11 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "../../../components/ui/form";
+} from "../../components/ui/form";
+import { useRouter } from "next/navigation";
 
 export default function SIGNUPPage() {
+  const router = useRouter();
   const formSchema = z.object({
     firstName: z.string().min(1, {
       message: "Firstname must be at least 1 characters.",
@@ -52,10 +54,30 @@ export default function SIGNUPPage() {
   });
 
   // 2. Define a submit handler.
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    try {
+      // Make a POST request with the form values
+      const result = await fetch("/api/users", {
+        // Replace "/api/your-endpoint" with the actual URL
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json", // Ensures the server knows you're sending JSON
+        },
+        body: JSON.stringify(values), // Converts the `values` object to a JSON string
+      });
+      console.log("result", result);
+
+      // Handle the response
+      if (!result.ok) {
+        throw new Error(`Error: ${result.statusText}`);
+      }
+
+      const data = await result.json();
+      router.push(`/verify/${data.userId}`);
+      console.log("Success:", data);
+    } catch (error) {
+      console.error("Submission failed:", error);
+    }
   }
 
   return (
@@ -203,7 +225,6 @@ export default function SIGNUPPage() {
                       />
 
                       <Button
-                        shape="round"
                         type="submit"
                         className="w-full max-w-[39.00rem] self-stretch rounded-md px-[2.13rem] sm:px-[1.25rem] bg-black-900_01 text-[1.13rem] text-white-a700"
                       >

@@ -1,10 +1,22 @@
 module.exports = {
   mode: "jit",
-  content: ["./src/**/**/*.{js,ts,jsx,tsx,html,mdx}", "./src/**/*.{js,ts,jsx,tsx,html,mdx}"],
+  content: [
+    "./src/**/**/*.{js,ts,jsx,tsx,html,mdx}",
+    "./src/**/*.{js,ts,jsx,tsx,html,mdx}",
+  ],
   darkMode: "class",
   theme: {
     screens: { md: { max: "1050px" }, sm: { max: "550px" } },
     extend: {
+      keyframes: {
+        "caret-blink": {
+          "0%,70%,100%": { opacity: "1" },
+          "20%,50%": { opacity: "0" },
+        },
+      },
+      animation: {
+        "caret-blink": "caret-blink 1.25s ease-out infinite",
+      },
       colors: {
         amber: { 500: "var(--amber_500)", "500_01": "var(--amber_500_01)" },
         black: { "900_01": "var(--black_900_01)" },
@@ -44,7 +56,11 @@ module.exports = {
         },
         red: { 500: "var(--red_500)", 800: "var(--red_800)" },
         teal: { 400: "var(--teal_400)" },
-        white: { a700: "var(--white_a700)", a700_4c: "var(--white_a700_4c)", a700_cc: "var(--white_a700_cc)" },
+        white: {
+          a700: "var(--white_a700)",
+          a700_4c: "var(--white_a700_4c)",
+          a700_cc: "var(--white_a700_cc)",
+        },
       },
       boxShadow: {},
       fontFamily: { inter: "Inter", chivo: "Chivo" },

@@ -6,7 +6,7 @@ export const {
   NEXT_PUBLIC_ENDOINT: ENDPOINT,
 } = process.env;
 
-const client = new sdk.Client();
+export const client = new sdk.Client();
 
 client.setEndpoint(ENDPOINT!).setProject(PROJECT_ID!).setKey(AUTH_API_KEY!);
 

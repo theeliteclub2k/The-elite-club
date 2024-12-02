@@ -1,5 +1,5 @@
 import UserProfile2 from "../../components/UserProfile2";
-import { Heading } from "@/components/ui";
+import { Heading } from "@/components/ui/Index";
 import React, { Suspense } from "react";
 
 const blogList = [
@@ -35,7 +35,10 @@ export default function NewsBlogSection() {
       <div className="flex flex-col items-center">
         <div className="mx-auto flex w-full max-w-[75.25rem] flex-col gap-[3.00rem] md:px-[1.25rem]">
           <div className="flex flex-col items-center justify-center gap-[1.00rem] self-center">
-            <Heading as="h2" className="text-[1.13rem] font-semibold text-gray-600">
+            <Heading
+              as="h2"
+              className="text-[1.13rem] font-semibold text-gray-600"
+            >
               News & Blog
             </Heading>
             <Heading
