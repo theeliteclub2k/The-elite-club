@@ -1,31 +1,62 @@
 "use client";
 
-import { Img, Heading, Text, Button, Checkbox, Input, Separator, Combobox } from "@/components/ui";
-import metadata from "libphonenumber-js/metadata.full.json";
-import Link from "next/link";
+import {
+  Img,
+  Heading,
+  Text,
+  Button,
+  Checkbox,
+  Input,
+  Separator,
+} from "@/components/ui";
 import React from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "../../../components/ui/form";
 
 export default function SIGNUPPage() {
-  const countryOptions = React.useMemo(() => {
-    return Object.entries(metadata.countries).map(([code, data]) => {
-      const callingCode = `${data[0]}`;
+  const formSchema = z.object({
+    firstName: z.string().min(1, {
+      message: "Firstname must be at least 1 characters.",
+    }),
+    lastName: z.string().min(1, {
+      message: "Lastname must be at least 1 characters.",
+    }),
+    phoneNumber: z.string().min(10, {
+      message: "Phone number must be at least 10 characters.",
+    }),
+    checkboxChecked: z
+      .boolean()
+      .refine(
+        (value) => value === true,
+        "You must agree to the terms and conditions"
+      ),
+  });
 
-      const display = {
-        code,
-        callingCode: `+${callingCode}`,
-        imgSrc: `https://catamphetamine.github.io/country-flag-icons/3x2/${code}.svg`,
-      };
+  // 1. Define your form.
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      firstName: "",
+      lastName: "",
+    },
+  });
 
-      return {
-        value: code,
-        label: (
-          <>
-            <Img isStatic src={display.imgSrc} width={26} height={20} alt="Megaphone Icon" className="h-[1.25rem]" />
-          </>
-        ),
-      };
-    });
-  }, []);
+  // 2. Define a submit handler.
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    // Do something with the form values.
+    // ✅ This will be type-safe and validated.
+    console.log(values);
+  }
 
   return (
     <div className="flex w-full bg-gray-200 md:flex-col">
@@ -48,93 +79,153 @@ export default function SIGNUPPage() {
                 >
                   Sign up to create your account
                 </Heading>
-                <div className="flex flex-col items-center gap-[1.50rem] self-stretch">
-                  <div className="flex gap-[1.50rem] self-stretch md:flex-col">
-                    <div className="flex w-full flex-col items-start justify-center gap-[0.38rem]">
-                      <Text size="textlg" as="p" className="text-[1.13rem] font-medium text-blue_gray-900_01">
-                        First Name
-                      </Text>
-                      <Input
-                        shape="round"
-                        type="text"
-                        placeholder={`First name`}
-                        className="self-stretch rounded-md border border-solid border-blue_gray-100 px-[1.13rem]"
-                      />
-                    </div>
-                    <div className="flex w-full flex-col items-start justify-center gap-[0.38rem]">
-                      <Text size="textlg" as="p" className="text-[1.13rem] font-medium text-blue_gray-900_01">
-                        Last Name
-                      </Text>
-                      <Input
-                        shape="round"
-                        type="text"
-                        placeholder={`Last name`}
-                        className="self-stretch rounded-md border border-solid border-blue_gray-100 px-[1.13rem]"
-                      />
-                    </div>
-                  </div>
-                  <div className="flex flex-col items-start justify-center gap-[0.38rem] self-stretch">
-                    <Text size="textlg" as="p" className="text-[1.13rem] font-medium text-blue_gray-900_01">
-                      Email Address
-                    </Text>
-                    <Input
-                      shape="round"
-                      type="email"
-                      placeholder={`Email Address`}
-                      className="self-stretch rounded-md border border-solid border-blue_gray-100 px-[1.13rem]"
-                    />
-                  </div>
-                  <div className="flex flex-col items-start justify-center gap-[0.38rem] self-stretch">
-                    <Text size="textlg" as="p" className="text-[1.13rem] font-medium text-blue_gray-900_01">
-                      Phone Number
-                    </Text>
-                    <div className="flex h-[3.63rem] items-center justify-center self-stretch rounded-md border border-solid border-blue_gray-100 bg-white-a700 px-[0.25rem]">
-                      <Combobox
-                        options={countryOptions}
-                        defaultValue={""}
-                        width="74"
-                        className="max-h-[1.50rem] flex-shrink-0 items-center justify-center border-none bg-transparent pl-[0.88rem]"
-                        indicator={
-                          <Img
-                            src="img_arrow_down_blue_gray_600.svg"
-                            width={24}
-                            height={24}
-                            alt="Arrow Down Icon"
-                            className="ml-[0.50rem] h-[1.50rem] w-[1.50rem]"
+                <div className="flex flex-col gap-[1.50rem] self-stretch">
+                  <Form {...form}>
+                    <form
+                      onSubmit={form.handleSubmit(onSubmit)}
+                      className="space-y-8"
+                    >
+                      <div className="flex gap-[1.50rem] self-stretch md:flex-col">
+                        <div className="flex w-full flex-col items-start justify-center gap-[0.38rem]">
+                          <Text
+                            size="textlg"
+                            as="p"
+                            className="text-[1.13rem] font-medium text-blue_gray-900_01"
+                          >
+                            First Name
+                          </Text>
+                          <FormField
+                            control={form.control}
+                            name="firstName"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormControl>
+                                  <Input
+                                    shape="round"
+                                    type="text"
+                                    placeholder={`First name`}
+                                    className="self-stretch rounded-md border border-solid border-blue_gray-100 px-[1.13rem]"
+                                    {...field}
+                                  />
+                                </FormControl>
+                                <FormMessage className="text-red-500" />
+                              </FormItem>
+                            )}
                           />
-                        }
+                        </div>
+                        <div className="flex w-full flex-col items-start justify-center gap-[0.38rem]">
+                          <Text
+                            size="textlg"
+                            as="p"
+                            className="text-[1.13rem] font-medium text-blue_gray-900_01"
+                          >
+                            Last Name
+                          </Text>
+                          <FormField
+                            control={form.control}
+                            name="lastName"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormControl>
+                                  <Input
+                                    shape="round"
+                                    type="text"
+                                    placeholder={`First name`}
+                                    className="self-stretch rounded-md border border-solid border-blue_gray-100 px-[1.13rem]"
+                                    {...field}
+                                  />
+                                </FormControl>
+                                <FormMessage className="text-red-500" />
+                              </FormItem>
+                            )}
+                          />
+                        </div>
+                      </div>
+                      <div className="flex flex-col items-start justify-center gap-[0.38rem] self-stretch">
+                        <Text
+                          size="textlg"
+                          as="p"
+                          className="text-[1.13rem] font-medium text-blue_gray-900_01"
+                        >
+                          Phone Number
+                        </Text>
+                        <div className="flex items-center justify-center self-stretch rounded-md border border-solid border-blue_gray-100 bg-white-a700">
+                          <div className="flex-shrink-0 items-center justify-center bg-transparent px-[0.88rem]">
+                            +91
+                          </div>
+                          <Separator
+                            orientation="vertical"
+                            className="h-[1.63rem] w-[0.06rem] bg-gray-200"
+                          />
+                          <FormField
+                            control={form.control}
+                            name="phoneNumber"
+                            render={({ field }) => (
+                              <FormItem className="flex-grow">
+                                <FormControl>
+                                  <Input
+                                    size="xs"
+                                    shape="square"
+                                    type="tel"
+                                    placeholder="Phone Number"
+                                    className="w-full border-none px-[0.75rem] text-gray-400 h-[3.63rem]"
+                                    {...field}
+                                  />
+                                </FormControl>
+                                <FormMessage className="text-red-500" />
+                              </FormItem>
+                            )}
+                          />
+                        </div>
+                      </div>
+                      <FormField
+                        control={form.control}
+                        rules={{ required: true }}
+                        // Reason for the validation failure: The checkbox is not checked by default
+                        // and the required validation rule is not satisfied. To fix this, we need
+                        // to set the initial value of the checkbox to true or check it programmatically
+                        // when the form is submitted.
+                        name="checkboxChecked"
+                        render={({ field }) => (
+                          <FormItem className="flex-grow">
+                            <FormControl>
+                              <Checkbox
+                                label="By signing up I agree  to the Terms & Conditions and Privacy Policy"
+                                id="104:2497"
+                                className="gap-[0.50rem] pr-[2.13rem] pt-[0.25rem] font-chivo text-[1.00rem] text-blue_gray-600 sm:pr-[1.25rem]"
+                                checked={field.value}
+                                onCheckedChange={field.onChange}
+                              />
+                            </FormControl>
+                            <FormMessage className="text-red-500" />
+                          </FormItem>
+                        )}
                       />
-                      <Separator orientation="vertical" className="ml-[0.38rem] h-[1.63rem] w-[0.06rem] bg-gray-200" />
-                      <Input
-                        size="xs"
-                        shape="square"
-                        type="tel"
-                        placeholder="Phone Number"
-                        className="ml-[0.38rem] flex-grow border-none px-[0.75rem] text-gray-400"
-                      />
-                    </div>
-                  </div>
-                  <Checkbox
-                    label="By signing up I agree  to the Terms & Conditions and Privacy Policy"
-                    id="104:2497"
-                    className="gap-[0.50rem] pr-[2.13rem] pt-[0.25rem] font-chivo text-[1.00rem] text-blue_gray-600 sm:pr-[1.25rem]"
-                  />
+
+                      <Button
+                        shape="round"
+                        type="submit"
+                        className="w-full max-w-[39.00rem] self-stretch rounded-md px-[2.13rem] sm:px-[1.25rem] bg-black-900_01 text-[1.13rem] text-white-a700"
+                      >
+                        SIGN UP
+                      </Button>
+                    </form>
+                  </Form>
                 </div>
-                <a href="https://www.youtube.com/embed/bv8Fxk0sz7I" target="_blank">
-                  <Button
-                    shape="round"
-                    className="w-full max-w-[39.00rem] self-stretch rounded-md px-[2.13rem] sm:px-[1.25rem]"
-                  >
-                    SIGN UP
-                  </Button>
-                </a>
               </div>
               <div className="flex flex-wrap gap-[0.38rem]">
-                <Text as="p" className="self-end text-[1.00rem] font-normal text-blue_gray-900_01">
+                <Text
+                  as="p"
+                  className="self-end text-[1.00rem] font-normal text-blue_gray-900_01"
+                >
                   Already have account?
                 </Text>
-                <a href="https://www.youtube.com/embed/bv8Fxk0sz7I" target="_blank">
-                  <Heading size="headingmd" as="h2" className="text-[1.00rem] font-semibold text-blue_gray-900_01">
+                <a href="/signin" target="_blank">
+                  <Heading
+                    size="headingmd"
+                    as="h2"
+                    className="text-[1.00rem] font-semibold text-blue_gray-900_01"
+                  >
                     Sign In
                   </Heading>
                 </a>
