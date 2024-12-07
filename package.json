@@ -24,7 +24,6 @@
     "class-variance-authority": "^0.5.1",
     "clsx": "^1.2.1",
     "cmdk": "^1.0.0",
-    "debug": "^4.3.7",
     "prisma": "^5.10.2",
     "react-hot-toast": "^2.4.1",
     "libphonenumber-js": "^1.11.3",
