@@ -61,8 +61,9 @@ export async function POST(request: NextRequest) {
                 totalAmount += product.price * item.quantity;
                 notes[product.id] = item.quantity;
             } else {
+                console.log(product)
                 return NextResponse.json(
-                    { error: `Product not found or insufficient quantity for itemId: ${item.itemId}` },
+                    { error: `Product not found or insufficient quantity for : ${product?.name}` },
                     { status: 400 }
                 );
             }

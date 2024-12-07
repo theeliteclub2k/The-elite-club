@@ -57,7 +57,7 @@ export default function ProductListProductcard({ data }: { data: Product }) {
               className="h-[1.00rem] w-[1.00rem]"
             />
             <Heading size="headings" as="p" className="text-[0.88rem] font-semibold text-blue_gray-900_01">
-              {data.rating.toString()}
+              {data.rating?.toString()}
             </Heading>
           </div>
         </div>

@@ -115,7 +115,7 @@ export async function POST(request: NextRequest) {
         await prisma.tempOrders.delete({ where: { id: tempOrder.id } });
       }
     });
-    sendWhatsAppMessage("919307655505", "919307655505", {
+    sendWhatsAppMessage("919307655505", process.env.WHATSAPP_ADMIN_PHONE_NUMBER||"919307655505", {
       userName: "John Doe",
       orderId: order.id,
       totalAmount: order.totalAmount,
