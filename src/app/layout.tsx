@@ -14,7 +14,7 @@ function RootLayout({ children }: { children: ReactNode }) {
         <link rel="icon" href="/favicon.ico" />
       </head>
       <body>
-        <Toaster />
+        <Toaster position="top-right" />
         {children}
         <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
       </body>

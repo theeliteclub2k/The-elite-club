@@ -25,29 +25,28 @@ declare global {
     Razorpay: any;
   }
 }
-const order = [{
-  itemId: "67477ba93d297752ec40ad36",
-  quantity: 3,
-},
-{
-  itemId: "67477ba93d297752ec40ad37",
-  quantity: 1,
-},
+const order = [
+  {
+    itemId: "67477ba93d297752ec40ad37",
+    quantity: 1,
+  },
 ];
 export default function CheckoutPage() {
   const router = useRouter();
   const handlePayment = async () => {
     console.log("clicked");
+    const toastId = toast.loading("Initiating Payment");
     const response = await fetch("/api/initiatePayment", {
       method: "POST",
-      body: JSON.stringify({order}),
+      body: JSON.stringify({ order }),
     });
     const data = await response.json();
     console.log(data);
-    if (data.status !== 200) {
+    if (response.status !== 200) {
       toast.error(data.error);
       return;
     }
+    toast.dismiss(toastId);
     var opti = {
       key: process.env.RAZORPAY_KEY_ID, // Enter the Key ID generated from the Dashboard
       amount: 100 * 100, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
@@ -58,6 +57,7 @@ export default function CheckoutPage() {
       order_id: data?.id, //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
       handler: async function async(response: any) {
         // console.log("res : ", response);
+        const toastId = toast.loading("Payment Successful, Creating Order please wait...");
         await fetch("/api/order/createOrder", {
           method: "POST",
           body: JSON.stringify({
@@ -65,7 +65,7 @@ export default function CheckoutPage() {
             payment: response,
           }),
         });
-        toast.success("Payment Successful");
+        toast.success("Order Created Successfully", { id: toastId });
         router.push("/"); //redirect to home page
       },
       prefill: {
@@ -82,7 +82,7 @@ export default function CheckoutPage() {
     rzp1.open();
     rzp1.on("payment.failed", function (response: any) {
       console.log("payment failed : ", response);
-      toast.error("Payment Failed");
+      toast.error("Payment Failed", { id: toastId });
     });
   };
   return (
