@@ -219,17 +219,20 @@ export default function ShoppingCartPage() {
                 </div>
                 <div className="flex flex-col gap-[1.00rem]">
                   <Suspense fallback={<div>Loading feed...</div>}>
-                    {cartItems?.map((item: any) => (
-                      <ProductDetails1
-                        id={item.id}
-                        productName={item.title}
-                        productImage={item.image}
-                        currentPrice={item.price?.toString()}
-                        quantity={item.quantity}
-                        isSelected={isSelected}
-                        setisSelected={setisSelected}
-                      />
-                    ))}
+                    {
+                      cartItems?.map((item: any) => (
+                        <ProductDetails1
+                          item={item}
+                          id={item.id}
+                          productName={item.title}
+                          productImage={item.image}
+                          currentPrice={item.price?.toString()}
+                          quantity={item.quantity}
+                          isSelected={isSelected}
+                          setisSelected={setisSelected}
+                        />
+                      ))
+                    }
                   </Suspense>
                 </div>
               </div>
@@ -255,12 +258,8 @@ export default function ShoppingCartPage() {
                         >
                           Total MRP
                         </Text>
-                        <Text
-                          size="textlg"
-                          as="p"
-                          className="text-[1.13rem] font-normal text-gray-950"
-                        >
-                          ₹{totalPrice}
+                        <Text size="textlg" as="p" className="text-[1.13rem] font-normal text-gray-950">
+                          ₹{totalPrice.toFixed(2)}
                         </Text>
                       </div>
                       <div className="flex flex-wrap justify-between gap-[1.25rem]">
@@ -271,12 +270,8 @@ export default function ShoppingCartPage() {
                         >
                           Discount on MRP
                         </Text>
-                        <Text
-                          size="textlg"
-                          as="p"
-                          className="text-[1.13rem] font-normal text-green-600_01"
-                        >
-                          -₹1430
+                        <Text size="textlg" as="p" className="text-[1.13rem] font-normal text-green-600_01">
+                          -₹{(totalPrice / 10).toFixed(2)}
                         </Text>
                       </div>
                       <div className="flex flex-wrap items-center justify-between gap-[1.25rem]">
@@ -287,12 +282,8 @@ export default function ShoppingCartPage() {
                         >
                           Coupon Discount
                         </Text>
-                        <Text
-                          size="textlg"
-                          as="p"
-                          className="text-[1.13rem] font-normal text-green-600_01"
-                        >
-                          -₹179
+                        <Text size="textlg" as="p" className="text-[1.13rem] font-normal text-green-600_01">
+                          -₹{(0).toFixed(2)}
                         </Text>
                       </div>
                       <div className="flex justify-center">
@@ -332,11 +323,8 @@ export default function ShoppingCartPage() {
                       >
                         Total Amount
                       </Heading>
-                      <Heading
-                        as="h6"
-                        className="text-[1.13rem] font-semibold text-blue_gray-900_01"
-                      >
-                        $992
+                      <Heading as="h6" className="text-[1.13rem] font-semibold text-blue_gray-900_01">
+                        ₹{(totalPrice - (totalPrice / 10)).toFixed(2)}
                       </Heading>
                     </div>
                   </div>

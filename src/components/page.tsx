@@ -9,8 +9,10 @@ import {
   SelectItem,
   SelectItems,
 } from "@/components/ui";
-import { CheckIcon, Square } from "lucide-react";
-import React, { useState } from "react";
+import { Square } from "lucide-react";
+import React from "react";
+import { useStore } from "zustand";
+import { useCart } from "@/store/store";
 
 const dropDownOptions = [
   { label: "Option1", value: "option1" },
@@ -28,7 +30,8 @@ interface Props {
   quantity?: any,
   isSelected: any,
   setisSelected: any,
-  id: string
+  id: string,
+  item: any
 
 }
 
@@ -43,6 +46,7 @@ export default function ProductDetails1({
   isSelected,
   setisSelected,
   id,
+  item,
   ...props
 }: Props) {
 
@@ -50,10 +54,14 @@ export default function ProductDetails1({
     setisSelected((items: any) => ([...items, id]))
   }
 
-  const removeItem = (id: any) => {
+  const removeItems = (id: any) => {
     const filteredArr = isSelected.filter((itm: any) => itm !== id)
     setisSelected(filteredArr)
   }
+
+  const { removeItem } = useCart();
+
+
   return (
     <div
       {...props}
@@ -76,7 +84,7 @@ export default function ProductDetails1({
                 height={20}
                 alt="Checkmark Icon"
                 className="absolute left-[0.10rem] top-[0.50rem] m-auto h-[1.25rem] w-[1.25rem]"
-                onClick={() => removeItem(id)}
+                onClick={() => removeItems(id)}
               />
               :
               <Square
@@ -166,7 +174,10 @@ export default function ProductDetails1({
         width={24}
         height={24}
         alt="Secondary Icon"
-        className="h-[1.50rem] w-[1.50rem]"
+        className="h-[1.50rem] w-[1.50rem] cursor-pointer"
+        onClick={() => {
+          removeItem(item)
+        }}
       />
     </div>
   );
