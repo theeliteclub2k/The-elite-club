@@ -2,7 +2,7 @@
 import BrandSelectionComponent from "../../components/BrandSelectionComponent";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
-import ProductListProductcard from "../../components/ProductListProductcard";
+import ProductListProductcard from "../../components/Productcard";
 import NewsBlogSection from "./NewsBlogSection";
 import axios from "axios"
 import {
@@ -51,7 +51,7 @@ export default function ProductlistPage() {
 
   const [Data, setData] = useState<Product[] | null>(null)
   const Cart = useStore(useCart)
-
+  console.log(Cart)
   const fetchProducts = async () => {
     const { data } = await axios.get('https://fakestoreapi.com/products')
     setData(data)
@@ -225,6 +225,7 @@ export default function ProductlistPage() {
                     {Data?.map((d, index) => (
                       Data &&
                       <ProductListProductcard
+                        cartItem={Cart}
                         key={"productListGrid" + index}
                         data={d!}
                       />

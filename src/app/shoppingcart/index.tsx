@@ -178,6 +178,7 @@ export default function ShoppingCartPage() {
                     {
                       cartItems?.map((item: any) => (
                         <ProductDetails1
+                          item={item}
                           id={item.id}
                           productName={item.title}
                           productImage={item.image}
@@ -207,7 +208,7 @@ export default function ShoppingCartPage() {
                           Total MRP
                         </Text>
                         <Text size="textlg" as="p" className="text-[1.13rem] font-normal text-gray-950">
-                          ₹{totalPrice}
+                          ₹{totalPrice.toFixed(2)}
                         </Text>
                       </div>
                       <div className="flex flex-wrap justify-between gap-[1.25rem]">
@@ -215,7 +216,7 @@ export default function ShoppingCartPage() {
                           Discount on MRP
                         </Text>
                         <Text size="textlg" as="p" className="text-[1.13rem] font-normal text-green-600_01">
-                          -₹1430
+                          -₹{(totalPrice / 10).toFixed(2)}
                         </Text>
                       </div>
                       <div className="flex flex-wrap items-center justify-between gap-[1.25rem]">
@@ -223,7 +224,7 @@ export default function ShoppingCartPage() {
                           Coupon Discount
                         </Text>
                         <Text size="textlg" as="p" className="text-[1.13rem] font-normal text-green-600_01">
-                          -₹179
+                          -₹{(0).toFixed(2)}
                         </Text>
                       </div>
                       <div className="flex justify-center">
@@ -250,7 +251,7 @@ export default function ShoppingCartPage() {
                         Total Amount
                       </Heading>
                       <Heading as="h6" className="text-[1.13rem] font-semibold text-blue_gray-900_01">
-                        $992
+                        ₹{(totalPrice - (totalPrice / 10)).toFixed(2)}
                       </Heading>
                     </div>
                   </div>
