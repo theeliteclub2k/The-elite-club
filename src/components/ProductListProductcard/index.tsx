@@ -8,12 +8,9 @@ interface Product {
   category: string,
   description: string,
   id: number,
-  image: string,
+  imageUrl: string,
   price: number,
-  rating: {
-    rate: number,
-    count: number
-  },
+  rating: number,
   title: string
 }
 interface Props {
@@ -29,7 +26,7 @@ export default function ProductListProductcard({ data }: { data: Product }) {
     >
       <div className="relative h-[21.25rem] content-center self-stretch">
         <img
-          src={data?.image}
+          src={data?.imageUrl}
           width={272}
           height={340}
           alt="Urban Vibe Image"
@@ -60,7 +57,7 @@ export default function ProductListProductcard({ data }: { data: Product }) {
               className="h-[1.00rem] w-[1.00rem]"
             />
             <Heading size="headings" as="p" className="text-[0.88rem] font-semibold text-blue_gray-900_01">
-              {data.rating.rate.toString()}
+              {data.rating.toString()}
             </Heading>
           </div>
         </div>
@@ -77,7 +74,7 @@ export default function ProductListProductcard({ data }: { data: Product }) {
           onClick={() => (
             incrementItem({
               id: data.id,
-              image: data.image,
+              image: data.imageUrl,
               price: data.price,
               title: data.title
             })
