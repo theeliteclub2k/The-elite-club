@@ -1,16 +1,35 @@
 import { Text, Heading, Img, Button } from "@/components/ui";
+import { useCart } from "@/store/store";
+import Link from "next/link";
 import React from "react";
+import { useStore } from "zustand";
 
+interface Product {
+  category: string,
+  description: string,
+  id: number,
+  image: string,
+  price: number,
+  rating: {
+    rate: number,
+    count: number
+  },
+  title: string
+}
 interface Props {
   className?: string;
 }
 
-export default function ProductListProductcard({ ...props }: Props) {
+export default function ProductListProductcard({ data }: { data: Product }) {
+  const { cartItems, incrementItem, decrementItem } = useCart();
+  console.log(cartItems)
+
   return (
-    <div {...props} className={`${props.className} flex flex-col items-center w-full gap-[0.63rem]`}>
+    <div className={` flex flex-col items-center w-full gap-[0.63rem]`}
+    >
       <div className="relative h-[21.25rem] content-center self-stretch">
-        <Img
-          src="img_rectangle_136_340x272.png"
+        <img
+          src={data?.image}
           width={272}
           height={340}
           alt="Urban Vibe Image"
@@ -26,7 +45,7 @@ export default function ProductListProductcard({ ...props }: Props) {
       </div>
       <div className="flex flex-col items-start justify-center gap-[0.38rem] self-stretch">
         <Heading as="h6" className="text-[1.13rem] font-semibold text-blue_gray-900_01">
-          Urban Vibe T-Shirt
+          {data?.title}
         </Heading>
         <div className="flex self-stretch">
           <Heading size="headings" as="p" className="text-[0.88rem] font-semibold text-gray-400">
@@ -41,17 +60,30 @@ export default function ProductListProductcard({ ...props }: Props) {
               className="h-[1.00rem] w-[1.00rem]"
             />
             <Heading size="headings" as="p" className="text-[0.88rem] font-semibold text-blue_gray-900_01">
-              4.8
+              {data.rating.rate.toString()}
             </Heading>
           </div>
         </div>
-        <div className="flex flex-wrap gap-[0.56rem] self-stretch">
-          <Heading as="h6" className="text-[1.13rem] font-bold text-blue_gray-900_01">
-            Rs. 550
+        <div className="flex  gap-[0.56rem] self-stretch">
+          <Heading as="h6" className="flex text-[1.13rem] font-bold text-blue_gray-900_01">
+            Rs. {(data.price * 84).toFixed(0)}
           </Heading>
           <Text size="textlg" as="p" className="text-[1.13rem] font-normal text-gray-400 line-through">
-            Rs 1000
+            Rs {(data.price * 84 + 200).toFixed(0)}
           </Text>
+        </div>
+        <div className="border select-none border-primary rounded-md px-1 text-sm cursor-pointer hover:bg-blue_gray-900_01 hover:text-[#ffff] active:bg-transparent active:text-blue_gray-900_01 active:scale-95"
+
+          onClick={() => (
+            incrementItem({
+              id: data.id,
+              image: data.image,
+              price: data.price,
+              title: data.title
+            })
+          )}
+        >
+          Add to Cart
         </div>
       </div>
     </div>

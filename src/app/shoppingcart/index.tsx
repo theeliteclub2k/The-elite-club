@@ -1,5 +1,6 @@
+'use client'
+import { useStore } from "zustand";
 import Header from "../../components/Header";
-import ProductDetails1 from "../../components/ProductDetails1";
 import RelatedProductsSection from "./RelatedProductsSection";
 import {
   Img,
@@ -15,7 +16,10 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui";
 import Link from "next/link";
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect, useState } from "react";
+import { useCart } from "@/store/store";
+import { Square } from "lucide-react";
+import ProductDetails1 from "@/components/page";
 
 const cartItemsList = [
   {
@@ -52,7 +56,38 @@ const cartItemsList = [
   },
 ];
 
+interface cartItem {
+  id: number,
+  image: string,
+  price: number,
+  quantity: number,
+  title: string
+}
+
 export default function ShoppingCartPage() {
+  const { cartItems, incrementItem, decrementItem } = useCart();
+  // const [cartItemsList, setcartItemsList] = useState<cartItem[]>([])
+  const [isSelected, setisSelected] = useState<number[]>([])
+  console.log(cartItems)
+  const addEveryItemToList = () => {
+    const data = cartItems.map((itm: any) => itm.id)
+    setisSelected(data)
+  }
+  const removeItems = () => {
+    isSelected.forEach((itms) => {
+      decrementItem({
+        id: itms,
+      })
+    })
+    setisSelected([])
+  }
+  function calculateTotalPrice(items: any) {
+    return items.reduce((total: any, item: any) => {
+      return total + (item.price * item.quantity);
+    }, 0); // Initial total is 0
+  }
+  const totalPrice = calculateTotalPrice(cartItems);
+
   return (
     <div className="flex w-full flex-col gap-[5.50rem] bg-white-a700 md:gap-[4.13rem] sm:gap-[2.75rem]">
       <div className="flex flex-col gap-[1.50rem]">
@@ -102,19 +137,29 @@ export default function ShoppingCartPage() {
                 <div className="flex flex-col gap-[1.38rem]">
                   <div className="flex justify-between gap-[1.25rem] sm:flex-col">
                     <div className="flex gap-[1.00rem]">
-                      <Img
-                        src="img_checkmark_blue_gray_900_01.svg"
-                        width={20}
-                        height={20}
-                        alt="Checkmark Image"
-                        className="h-[1.25rem] w-[1.25rem]"
-                      />
+                      {
+                        isSelected?.length == cartItems?.length && cartItems.length > 0 ?
+                          <Img
+                            src="img_checkmark_blue_gray_900_01.svg"
+                            width={20}
+                            height={20}
+                            alt="Checkmark Image"
+                            className="h-[1.25rem] w-[1.25rem] cursor-pointer"
+                            onClick={() => setisSelected([])}
+                          /> :
+                          <Square
+                            onClick={addEveryItemToList}
+                            className=" cursor-pointer"
+                          />
+                      }
                       <Heading as="h2" className="text-[1.13rem] font-semibold text-blue_gray-900_01">
-                        4/4 ITEMS SELECTED
+                        {isSelected?.length ?? 0} / {cartItems?.length} ITEMS SELECTED
                       </Heading>
                     </div>
                     <div className="flex flex-1 justify-end sm:self-stretch">
-                      <Heading as="h3" className="text-[1.13rem] font-semibold text-blue_gray-900_01">
+                      <Heading as="h3" className="text-[1.13rem] font-semibold text-blue_gray-900_01 cursor-pointer"
+                        onClick={removeItems}
+                      >
                         REMOVE
                       </Heading>
                       <Separator
@@ -130,9 +175,19 @@ export default function ShoppingCartPage() {
                 </div>
                 <div className="flex flex-col gap-[1.00rem]">
                   <Suspense fallback={<div>Loading feed...</div>}>
-                    {cartItemsList.map((d, index) => (
-                      <ProductDetails1 {...d} key={"productList" + index} />
-                    ))}
+                    {
+                      cartItems?.map((item: any) => (
+                        <ProductDetails1
+                          id={item.id}
+                          productName={item.title}
+                          productImage={item.image}
+                          currentPrice={item.price?.toString()}
+                          quantity={item.quantity}
+                          isSelected={isSelected}
+                          setisSelected={setisSelected}
+                        />
+                      ))
+                    }
                   </Suspense>
                 </div>
               </div>
@@ -144,15 +199,15 @@ export default function ShoppingCartPage() {
                 <div className="flex flex-1 flex-col gap-[2.00rem] rounded-lg bg-white-a700 sm:self-stretch">
                   <div className="flex flex-col items-start justify-center gap-[1.38rem]">
                     <Heading as="h5" className="text-[1.13rem] font-semibold text-blue_gray-900_01">
-                      PRICE DETAILS (2 items)
+                      PRICE DETAILS ( {cartItems.length} items)
                     </Heading>
                     <div className="flex flex-col gap-[0.88rem] self-stretch">
                       <div className="flex flex-wrap justify-between gap-[1.25rem]">
                         <Text size="textlg" as="p" className="text-[1.13rem] font-normal text-gray-600">
                           Total MRP
                         </Text>
-                        <Text size="textlg" as="p" className="text-[1.13rem] font-normal text-blue_gray-900_01">
-                          ₹2598
+                        <Text size="textlg" as="p" className="text-[1.13rem] font-normal text-gray-950">
+                          ₹{totalPrice}
                         </Text>
                       </div>
                       <div className="flex flex-wrap justify-between gap-[1.25rem]">
@@ -201,6 +256,7 @@ export default function ShoppingCartPage() {
                   </div>
                   <Button
                     shape="round"
+                    onClick={() => incrementItem("1")}
                     className="w-full max-w-[29.13rem] self-stretch rounded-md px-[2.13rem] font-medium sm:px-[1.25rem]"
                   >
                     PLACE ORDER
