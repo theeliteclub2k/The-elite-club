@@ -60,7 +60,7 @@ export default function ProductlistPage() {
   useEffect(() => {
     fetchProducts()
   }, [])
-
+  console.log(Data)
   return (
     <div className="flex w-full flex-col gap-[5.63rem] bg-white-a700 md:gap-[4.19rem] sm:gap-[2.81rem]">
       <div className="flex flex-col gap-[1.50rem]">

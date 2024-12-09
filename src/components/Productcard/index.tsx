@@ -31,29 +31,32 @@ export default function ProductListProductcard({ data, cartItem }: { data: Produ
   const { cartItems, incrementItem, decrementItem } = useCart();
   // console.log(, "this is cart item")
   const isProductAdded = cartItems.filter((cart: any) => cart.image == data?.image)
-
   return (
     <div className={` flex flex-col justify-between items-center w-full `}>
       <div className="relative min-h-[21.25rem] content-center self-stretch">
-        <img
-          src={data?.image}
-          width={272}
-          height={340}
-          alt="Urban Vibe Image"
-          className="mx-auto h-[21.25rem] w-full flex-1 object-cover border border-blue-500"
-        />
+        <Link href={`productlist/${data.id}`}>
+          <img
+            src={data?.image}
+            width={272}
+            height={340}
+            alt="Urban Vibe Image"
+            className="mx-auto h-[18.25rem] w-full flex-1 object-cover "
+          />
+        </Link>
         <Button
           size="sm"
           shape="square"
-          className="absolute left-[0.56rem] top-[0.63rem] m-auto w-full min-w-[4.88rem] max-w-[4.88rem] px-[0.75rem] font-bold"
+          className="absolute left-[0.56rem] top-[0.63rem] m-auto w-full min-w-[4.88rem] bg-red-700 rounded-2xl text-white-a700 max-w-[4.88rem] px-[0.75rem] font-bold"
         >
           25% OFF
         </Button>
       </div>
       <div className="flex flex-col items-start justify-center gap-[0.38rem] self-stretch p-2">
-        <Heading as="h6" className="text-[0.9rem] font-semibold text-blue_gray-900_01">
-          {data?.title}
-        </Heading>
+        <div className="flex ">
+          <Heading as="h6" className="text-[0.9rem] font-semibold text-blue_gray-900_01">
+            {data?.title}
+          </Heading>
+        </div>
         <div className="flex self-stretch">
           <Heading size="headings" as="p" className="text-[0.88rem] font-semibold text-gray-400">
             H&M
