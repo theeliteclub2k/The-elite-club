@@ -72,7 +72,7 @@ export async function POST(request: NextRequest) {
         // Create Razorpay order
         const receipt = `${user.name},${user.phoneNumber},TA:${totalAmount}`.slice(0, 40);
         const options = {
-            amount: totalAmount * 100, // Razorpay expects amount in paise
+            amount: Math.round(totalAmount * 100), // Razorpay expects amount in paise
             currency: "INR",
             receipt,
             notes,
