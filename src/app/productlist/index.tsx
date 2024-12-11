@@ -38,12 +38,9 @@ export interface Product {
   category: string,
   description: string,
   id: number,
-  image: string,
+  imageUrl: string,
   price: number,
-  rating: {
-    rate: number,
-    count: number
-  },
+  rating: number,
   title: string
 }
 
@@ -54,8 +51,8 @@ export default function ProductlistPage() {
   const [price, setprice] = useState(0)
   console.log(price)
   const fetchProducts = async () => {
-    const { data } = await axios.get('https://fakestoreapi.com/products')
-    setData(data)
+    const { data } = await axios.get('/api/products/getAllProducts')
+    setData(data.products)
   }
 
   useEffect(() => {

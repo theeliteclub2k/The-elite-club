@@ -8,12 +8,9 @@ interface Product {
   category: string,
   description: string,
   id: number,
-  image: string,
+  imageUrl: string,
   price: number,
-  rating: {
-    rate: number,
-    count: number
-  },
+  rating:number,
   title: string
 }
 interface Props {
@@ -30,19 +27,18 @@ interface CartState {
 export default function ProductListProductcard({ data, cartItem }: { data: Product, cartItem: any }) {
   const { cartItems, incrementItem, decrementItem } = useCart();
   // console.log(, "this is cart item")
-  const isProductAdded = cartItems.filter((cart: any) => cart.image == data?.image)
+  const isProductAdded = cartItems.filter((cart: any) => cart.image == data?.imageUrl)
+
   return (
     <div className={` flex flex-col justify-between items-center w-full `}>
       <div className="relative min-h-[21.25rem] content-center self-stretch">
-        <Link href={`productlist/${data.id}`}>
-          <img
-            src={data?.image}
-            width={272}
-            height={340}
-            alt="Urban Vibe Image"
-            className="mx-auto h-[18.25rem] w-full flex-1 object-cover "
-          />
-        </Link>
+        <img
+          src={data?.imageUrl}
+          width={272}
+          height={340}
+          alt="Urban Vibe Image"
+          className="mx-auto h-[21.25rem] w-full flex-1 object-cover border border-blue-500"
+        />
         <Button
           size="sm"
           shape="square"
@@ -70,7 +66,7 @@ export default function ProductListProductcard({ data, cartItem }: { data: Produ
               className="h-[1.00rem] w-[1.00rem]"
             />
             <Heading size="headings" as="p" className="text-[0.88rem] font-semibold text-blue_gray-900_01">
-              {data.rating.rate.toString()}
+              {data.rating?.toString()}
             </Heading>
           </div>
         </div>
@@ -89,7 +85,7 @@ export default function ProductListProductcard({ data, cartItem }: { data: Produ
                 onClick={() => (
                   decrementItem({
                     id: data.id,
-                    image: data.image,
+                    image: data.imageUrl,
                     price: data.price,
                     title: data.title
                   })
@@ -100,7 +96,7 @@ export default function ProductListProductcard({ data, cartItem }: { data: Produ
                 onClick={() => (
                   incrementItem({
                     id: data.id,
-                    image: data.image,
+                    image: data.imageUrl,
                     price: data.price,
                     title: data.title
                   })
@@ -112,7 +108,7 @@ export default function ProductListProductcard({ data, cartItem }: { data: Produ
               onClick={() => (
                 incrementItem({
                   id: data.id,
-                  image: data.image,
+                  image: data.imageUrl,
                   price: data.price,
                   title: data.title
                 })
