@@ -42,15 +42,17 @@ export default function ProductListProductcard({ data, cartItem }: { data: Produ
         <Button
           size="sm"
           shape="square"
-          className="absolute left-[0.56rem] top-[0.63rem] m-auto w-full min-w-[4.88rem] max-w-[4.88rem] px-[0.75rem] font-bold"
+          className="absolute left-[0.56rem] top-[0.63rem] m-auto w-full min-w-[4.88rem] bg-red-700 rounded-2xl text-white-a700 max-w-[4.88rem] px-[0.75rem] font-bold"
         >
           25% OFF
         </Button>
       </div>
       <div className="flex flex-col items-start justify-center gap-[0.38rem] self-stretch p-2">
-        <Heading as="h6" className="text-[0.9rem] font-semibold text-blue_gray-900_01">
-          {data?.title}
-        </Heading>
+        <div className="flex ">
+          <Heading as="h6" className="text-[0.9rem] font-semibold text-blue_gray-900_01">
+            {data?.title}
+          </Heading>
+        </div>
         <div className="flex self-stretch">
           <Heading size="headings" as="p" className="text-[0.88rem] font-semibold text-gray-400">
             H&M

@@ -48,7 +48,8 @@ export default function ProductlistPage() {
 
   const [Data, setData] = useState<Product[] | null>(null)
   const Cart = useStore(useCart)
-  console.log(Cart)
+  const [price, setprice] = useState(0)
+  console.log(price)
   const fetchProducts = async () => {
     const { data } = await axios.get('/api/products/getAllProducts')
     setData(data.products)
@@ -57,7 +58,7 @@ export default function ProductlistPage() {
   useEffect(() => {
     fetchProducts()
   }, [])
-
+  console.log(Data)
   return (
     <div className="flex w-full flex-col gap-[5.63rem] bg-white-a700 md:gap-[4.19rem] sm:gap-[2.81rem]">
       <div className="flex flex-col gap-[1.50rem]">
@@ -145,7 +146,7 @@ export default function ProductlistPage() {
                     <BrandSelectionComponent />
                     {/* <BrandSelectionComponent /> */}
                   </div>
-                  <Select name="Price Dropdown">
+                  {/* <Select name="Price Dropdown">
                     <SelectTrigger
                       size="md"
                       variant="outline"
@@ -167,7 +168,14 @@ export default function ProductlistPage() {
                     <SelectContent>
                       <SelectItems options={dropDownOptions} />
                     </SelectContent>
-                  </Select>
+                  </Select> */}
+                  <div className="text-#00000 font-semibold mb-3"> Price </div>
+                  <div className="text-sm text-blue_gray-900_01 font-semibold">Current Value- ₹{price} </div>
+                  <input type="range" value={price} max={10000} onChange={(e) => setprice(Number(e.target.value))} />
+                  <div className="flex justify-between text-sm text-blue_gray-900_01 font-semibold">
+                    <div>₹0</div>
+                    <div>₹10,000</div>
+                  </div>
                   <Select name="Condition Dropdown">
                     <SelectTrigger
                       size="md"
