@@ -100,7 +100,7 @@ export default function ShoppingCartPage() {
           }),
         });
         toast.success("Order Created Successfully", { id: toastId });
-        router.push("/"); //redirect to home page
+        router.push("/productlist"); //redirect to home page
       },
       prefill: {
         //We recommend using the prefill parameter to auto-fill customer's contact information, especially their phone number
