@@ -1,6 +1,8 @@
+'use client'
 import { Img, Heading, Menubar, MenubarContent, MenubarMenu, MenubarTrigger, Text } from "@/components/ui";
 import Link from "next/link";
 import React from "react";
+import { Sheet, SheetContent, SheetHeader, SheetTrigger } from "../ui/sheet";
 
 interface Props {
   className?: string;
@@ -41,7 +43,7 @@ export default function Header({ ...props }: Props) {
             <MenubarMenu>
               <MenubarTrigger>
                 <Heading size="headings" as="p" className="text-[0.88rem] font-semibold text-blue_gray-900_01">
-                  Home
+                  <Link href={'/productlist'}> Home</Link>
                 </Heading>
               </MenubarTrigger>
             </MenubarMenu>
@@ -136,8 +138,11 @@ export default function Header({ ...props }: Props) {
                 className="h-[1.50rem] w-[1.50rem]"
               />
             </Link>
-            <Link href="#">
-              <Img src="img_bag.svg" width={24} height={24} alt="Bag Icon" className="h-[1.50rem] w-[1.50rem]" />
+            <Link href='/shoppingcart'>
+              <Img src="img_bag.svg"
+                width={24} height={24} alt="Bag Icon"
+                className="h-[1.50rem] w-[1.50rem]"
+              />
             </Link>
             <Link href="#">
               <Img src="img_lock.svg" width={24} height={24} alt="Lock Icon" className="h-[1.50rem] w-[1.50rem]" />
