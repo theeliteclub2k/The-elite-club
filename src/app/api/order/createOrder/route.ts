@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import crypto from "crypto";
-import { Product } from "@prisma/client";
+import { Product, User } from "@prisma/client";
 import { sendWhatsAppMessage } from "@/services/whatsappService";
 
 import prisma from "@/../prisma/prisma";
@@ -115,12 +115,19 @@ export async function POST(request: NextRequest) {
         await prisma.tempOrders.delete({ where: { id: tempOrder.id } });
       }
     });
-    sendWhatsAppMessage("919307655505", process.env.WHATSAPP_ADMIN_PHONE_NUMBER||"919307655505", {
-      userName: "John Doe",
-      orderId: order.id,
-      totalAmount: order.totalAmount,
-      products: orderItems,
+    const response = await prisma.user.findUnique({
+      where: { id: "67477ba83d297752ec40ad33" },
     });
+    sendWhatsAppMessage(
+      `91${response?.phoneNumber || "9307655505"}`,
+      process.env.WHATSAPP_ADMIN_PHONE_NUMBER || "919307655505",
+      {
+        userName: response?.name || "",
+        orderId: order.id,
+        totalAmount: order.totalAmount,
+        products: orderItems,
+      }
+    );
     console.log("Product quantities updated and temporary order deleted");
     return NextResponse.json(
       { message: "Payment verified and order created successfully" },

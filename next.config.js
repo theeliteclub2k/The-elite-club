@@ -1,7 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  experimental: { serverActions: true },
   images: {
     domains: ["fakestoreapi.com"],
     remotePatterns: [
@@ -21,6 +20,14 @@ const nextConfig = {
         permanent: true,
       },
     ];
+  },
+  compress: true, // Enable gzip compression
+  webpack: (config) => {
+    // Optional: Custom Webpack configuration
+    config.optimization.splitChunks = {
+      chunks: 'all',
+    };
+    return config;
   },
 };
 
