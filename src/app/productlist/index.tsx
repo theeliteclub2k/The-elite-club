@@ -37,11 +37,11 @@ const dropDownOptions = [
 export interface Product {
   category: string,
   description: string,
-  id: number,
+  id: string,
   imageUrl: string,
   price: number,
   rating: number,
-  title: string
+  name: string
 }
 
 export default function ProductlistPage() {

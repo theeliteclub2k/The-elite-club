@@ -63,6 +63,7 @@ export default function ProductDetails1({
 
 
   return (
+    quantity > 0 &&
     <div
       {...props}
       className={`${props.className} flex sm:flex-col justify-center items-start p-[0.75rem] border-gray-300 border border-solid flex-1 rounded-md`}
@@ -176,7 +177,8 @@ export default function ProductDetails1({
         alt="Secondary Icon"
         className="h-[1.50rem] w-[1.50rem] cursor-pointer"
         onClick={() => {
-          removeItem(item)
+          removeItem(item),
+            localStorage.removeItem(id)
         }}
       />
     </div>
