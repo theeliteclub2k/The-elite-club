@@ -98,7 +98,7 @@ export async function POST(request: NextRequest) {
       data: {
         status: "PENDING",
         totalAmount: amount,
-        userId: "67477ba83d297752ec40ad33", // Replace with the actual user ID from session/token
+        userId: process.env.TEMP_USER_ID||"672f83b06981c6e48f930ec7", // Replace with the actual user ID from session/token
         paymentId: paymentData.id,
         items: { create: orderItems.map(({ name, ...rest }) => rest) },
       },
@@ -116,7 +116,7 @@ export async function POST(request: NextRequest) {
       }
     });
     const response = await prisma.user.findUnique({
-      where: { id: "67477ba83d297752ec40ad33" },
+      where: { id: process.env.TEMP_USER_ID||"672f83b06981c6e48f930ec7" },
     });
     sendWhatsAppMessage(
       `91${response?.phoneNumber || "9307655505"}`,

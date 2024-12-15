@@ -21,7 +21,7 @@ const razorpay = new Razorpay({
     key_secret: process.env.RAZORPAY_KEY_SECRET as string,
 });
 
-const userId = "67477ba83d297752ec40ad33";
+const userId =process.env.TEMP_USER_ID|| "672f83b06981c6e48f930ec7";
 
 export async function POST(request: NextRequest) {
     try {
