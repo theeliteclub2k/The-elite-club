@@ -9,13 +9,9 @@ interface DataType {
     category: string,
     description: string
     id: number
-    image: string
+    imageUrl: string
     price: number
-    rating: {
-        rate: number,
-        count: number
-    },
-    title: string
+    name: string
 
 }
 
@@ -24,28 +20,26 @@ const page = ({ params }: { params: { slug: string } }) => {
     const [Data, setData] = useState<DataType | null>(null)
 
     const fetchProducts = async () => {
-        const { data } = await axios.get(`https://fakestoreapi.com/products/${id}`)
+        const { data } = await axios.get(`/api/products/${id}`)
         setData(data)
     }
 
     useEffect(() => {
         fetchProducts()
     }, [])
-
     console.log(Data)
-
     return (
         <div>
             <div className='pl-20 pt-10'> <Link href={'/productlist'} ><ArrowLeft /></Link> </div>
             <div className='flex items-center justify-center h-screen w-screen'>
                 <div className='w-[50%] flex justify-center m-auto'>
-                    <img src={Data?.image} alt="" className='min-h-40 max-h-[300px] min-w-40' />
+                    <img src={Data?.imageUrl} alt="" className='min-h-40 max-h-[300px] min-w-40' />
                 </div>
                 <div className='w-[50%]'>
-                    <div className='text-xl'> {Data?.title} </div>
+                    <div className='text-xl'> {Data?.name} </div>
                     <div>{Data?.description}</div>
                     <div> ₹{Data?.price.toString()} </div>
-                    <div> ₹{Data?.rating.count.toString()} </div>
+                    {/* <div> ₹{Data?.rating.count.toString()} </div> */}
                 </div>
             </div>
         </div >

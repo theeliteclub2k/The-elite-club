@@ -1,17 +1,18 @@
-import { Text, Heading, Img, Button } from "@/components/ui";
+'use client'
 import { useCart } from "@/store/store";
 import Link from "next/link";
 import React from "react";
 import { useStore } from "zustand";
+import { Button, Heading, Img, Text } from "../ui";
 
 interface Product {
   category: string,
   description: string,
-  id: number,
+  id: string,
   imageUrl: string,
   price: number,
-  rating:number,
-  title: string
+  rating: number,
+  name: string
 }
 interface Props {
   className?: string;
@@ -28,17 +29,27 @@ export default function ProductListProductcard({ data, cartItem }: { data: Produ
   const { cartItems, incrementItem, decrementItem } = useCart();
   // console.log(, "this is cart item")
   const isProductAdded = cartItems.filter((cart: any) => cart.image == data?.imageUrl)
+  console.log(data)
 
+  const removeFromLocalStorage = (id: string, image: string, price: Number, name: string, quantity = 1) => {
+    localStorage.setItem(id, JSON.stringify({ id, image, price, name, quantity }))
+  }
+
+  const addToLocalStorage = (id: string, image: string, price: Number, name: string, quantity = 1) => {
+    localStorage.setItem(id, JSON.stringify({ id, image, price, name, quantity }))
+  }
   return (
     <div className={` flex flex-col justify-between items-center w-full `}>
       <div className="relative min-h-[21.25rem] content-center self-stretch">
-        <img
-          src={data?.imageUrl}
-          width={272}
-          height={340}
-          alt="Urban Vibe Image"
-          className="mx-auto h-[21.25rem] w-full flex-1 object-cover border border-blue-500"
-        />
+        <Link href={`/productlist/${data.id}`}>
+          <img
+            src={data?.imageUrl}
+            width={272}
+            height={340}
+            alt="Urban Vibe Image"
+            className="mx-auto h-[21.25rem] w-full flex-1 object-cover"
+          />
+        </Link>
         <Button
           size="sm"
           shape="square"
@@ -50,7 +61,7 @@ export default function ProductListProductcard({ data, cartItem }: { data: Produ
       <div className="flex flex-col items-start justify-center gap-[0.38rem] self-stretch p-2">
         <div className="flex ">
           <Heading as="h6" className="text-[0.9rem] font-semibold text-blue_gray-900_01">
-            {data?.title}
+            {data?.name}
           </Heading>
         </div>
         <div className="flex self-stretch">
@@ -72,10 +83,10 @@ export default function ProductListProductcard({ data, cartItem }: { data: Produ
         </div>
         <div className="flex  gap-[0.56rem] self-stretch items-center">
           <Heading as="h6" className="flex text-[1.13rem] font-bold text-blue_gray-900_01">
-            Rs. {(data.price * 84).toFixed(0)}
+            Rs. {(data.price)}
           </Heading>
           <Text size="textlg" as="p" className="text-[0.93rem] font-normal text-gray-400 line-through ">
-            Rs {(data.price * 84 + 200).toFixed(0)}
+            Rs {(data.price + 100)}
           </Text>
         </div>
         {
@@ -87,8 +98,9 @@ export default function ProductListProductcard({ data, cartItem }: { data: Produ
                     id: data.id,
                     image: data.imageUrl,
                     price: data.price,
-                    title: data.title
-                  })
+                    title: data.name
+                  }),
+                  removeFromLocalStorage(data.id, data.imageUrl, data.price, data.name, (isProductAdded[0].quantity - 1))
                 )}
               > - </div>
               <div className="select-none"> {isProductAdded[0].quantity}</div>
@@ -98,8 +110,9 @@ export default function ProductListProductcard({ data, cartItem }: { data: Produ
                     id: data.id,
                     image: data.imageUrl,
                     price: data.price,
-                    title: data.title
-                  })
+                    title: data.name
+                  }),
+                  addToLocalStorage(data.id, data.imageUrl, data.price, data.name, (isProductAdded[0].quantity + 1))
                 )}
               > + </div>
             </div>
@@ -110,8 +123,9 @@ export default function ProductListProductcard({ data, cartItem }: { data: Produ
                   id: data.id,
                   image: data.imageUrl,
                   price: data.price,
-                  title: data.title
-                })
+                  title: data.name
+                }),
+                addToLocalStorage(data.id, data.imageUrl, data.price, data.name)
               )}
             >
               Add to Cart
@@ -119,6 +133,6 @@ export default function ProductListProductcard({ data, cartItem }: { data: Produ
         }
 
       </div>
-    </div>
+    </div >
   );
 }

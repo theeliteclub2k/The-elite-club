@@ -1,5 +1,4 @@
 "use client";
-import { useStore } from "zustand";
 import Header from "../../components/Header";
 import RelatedProductsSection from "./RelatedProductsSection";
 import {
@@ -23,28 +22,38 @@ import ProductDetails1 from "@/components/page";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
-interface cartItem {
-  id: number;
-  image: string;
-  price: number;
-  quantity: number;
-  title: string;
-}
-
 export default function ShoppingCartPage() {
   const { cartItems, incrementItem, decrementItem } = useCart();
+  const [CartItems, setCartItems] = useState<string[]>([])
   // const [cartItemsList, setcartItemsList] = useState<cartItem[]>([])
-  const [isSelected, setisSelected] = useState<number[]>([]);
-  console.log(cartItems);
+  const [isSelected, setisSelected] = useState<string[]>([]);
   const addEveryItemToList = () => {
-    const data = cartItems.map((itm: any) => itm.id);
+    const data = CartItems.map((itm: any) => itm.id);
     setisSelected(data);
   };
+
+  const localStorageItems = () => {
+    const items: string[] = [];
+
+    Object.keys(localStorage).forEach((k) => {
+      if (k.length === 24) {
+        const item = localStorage.getItem(k);
+        if (item !== null) {
+          console.log(JSON.parse(item));
+          items.push(JSON.parse(item));
+        }
+      }
+    });
+    setCartItems(items);
+  }
   const removeItems = () => {
     isSelected.forEach((itms) => {
       decrementItem({
         id: itms,
-      });
+      }),
+        localStorage.removeItem(itms)
+      window.location.reload()
+
     });
     setisSelected([]);
   };
@@ -53,8 +62,8 @@ export default function ShoppingCartPage() {
       return total + item.price * item.quantity;
     }, 0); // Initial total is 0
   }
-  const totalPrice = calculateTotalPrice(cartItems);
-  const order = cartItems.map((item: any) => {
+  const totalPrice = calculateTotalPrice(CartItems);
+  const order = CartItems.map((item: any) => {
     return {
       itemId: item.id,
       quantity: item.quantity,
@@ -62,7 +71,7 @@ export default function ShoppingCartPage() {
   });
   const router = useRouter();
   const handlePayment = async () => {
-    if(order.length === 0) {
+    if (order.length === 0) {
       toast.error("No items in cart");
       return;
     }
@@ -119,6 +128,17 @@ export default function ShoppingCartPage() {
       toast.error("Payment Failed", { id: toastId });
     });
   };
+  console.log(cartItems);
+
+
+  useEffect(() => {
+    console.log("CartItems updated:", CartItems);
+  }, [CartItems]);
+
+  useEffect(() => {
+    localStorageItems()
+  }, [])
+
   return (
     <div className="flex w-full flex-col gap-[5.50rem] bg-white-a700 md:gap-[4.13rem] sm:gap-[2.75rem]">
       <div className="flex flex-col gap-[1.50rem]">
@@ -168,8 +188,8 @@ export default function ShoppingCartPage() {
                 <div className="flex flex-col gap-[1.38rem]">
                   <div className="flex justify-between gap-[1.25rem] sm:flex-col">
                     <div className="flex gap-[1.00rem]">
-                      {isSelected?.length == cartItems?.length &&
-                      cartItems.length > 0 ? (
+                      {isSelected?.length == CartItems?.length &&
+                        CartItems.length > 0 ? (
                         <Img
                           src="img_checkmark_blue_gray_900_01.svg"
                           width={20}
@@ -188,7 +208,7 @@ export default function ShoppingCartPage() {
                         as="h2"
                         className="text-[1.13rem] font-semibold text-blue_gray-900_01"
                       >
-                        {isSelected?.length ?? 0} / {cartItems?.length} ITEMS
+                        {isSelected?.length ?? 0} / {CartItems?.length} ITEMS
                         SELECTED
                       </Heading>
                     </div>
@@ -220,14 +240,23 @@ export default function ShoppingCartPage() {
                 <div className="flex flex-col gap-[1.00rem]">
                   <Suspense fallback={<div>Loading feed...</div>}>
                     {
-                      cartItems?.map((item: any) => (
+                      CartItems &&
+                      CartItems.map((item) => (
+                        // @ts-ignore
+                        item.quantity > 0 &&
                         <ProductDetails1
                           item={item}
+                          // @ts-ignore
                           id={item.id}
-                          productName={item.title}
+                          // @ts-ignore
+                          productName={item.name}
+                          // @ts-ignore
                           productImage={item.image}
+                          // @ts-ignore
                           currentPrice={item.price?.toString()}
+                          // @ts-ignore
                           quantity={item.quantity}
+                          // @ts-ignore
                           isSelected={isSelected}
                           setisSelected={setisSelected}
                         />
@@ -247,7 +276,7 @@ export default function ShoppingCartPage() {
                       as="h5"
                       className="text-[1.13rem] font-semibold text-blue_gray-900_01"
                     >
-                      PRICE DETAILS ( {cartItems.length} items)
+                      PRICE DETAILS ( {CartItems.length} items)
                     </Heading>
                     <div className="flex flex-col gap-[0.88rem] self-stretch">
                       <div className="flex flex-wrap justify-between gap-[1.25rem]">
