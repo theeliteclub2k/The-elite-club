@@ -1,7 +1,17 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  experimental: { serverActions: true },
+  images: {
+    domains: ["fakestoreapi.com"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "fakestoreapi.com",
+        port: "",
+        pathname: "/img/**",
+      },
+    ],
+  },
   redirects: async () => {
     return [
       {
@@ -10,6 +20,14 @@ const nextConfig = {
         permanent: true,
       },
     ];
+  },
+  compress: true, // Enable gzip compression
+  webpack: (config) => {
+    // Optional: Custom Webpack configuration
+    config.optimization.splitChunks = {
+      chunks: 'all',
+    };
+    return config;
   },
 };
 
