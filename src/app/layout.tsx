@@ -3,13 +3,7 @@ import "@/styles/tailwind.css";
 import "../styles/index.css";
 import "../styles/font.css";
 import { Toaster } from "react-hot-toast";
-import {
-  ClerkProvider,
-  SignInButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
-} from "@clerk/nextjs";
+import { ClerkProvider } from "@clerk/nextjs";
 function RootLayout({ children }: { children: ReactNode }) {
   return (
     <ClerkProvider>
